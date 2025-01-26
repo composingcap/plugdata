@@ -36,6 +36,7 @@ struct Setup {
     static void initialisePdLuaInstance();
     static void initialiseELSE();
     static void initialiseCyclone();
+    //static void initializeGrainflow();
     static void initialiseGem(std::string const& gemPluginPath);
 
     static void* createMIDIHook(void* ptr,

@@ -202,6 +202,16 @@ file(GLOB ELSE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/pd-else/Source/Extra/Aliases/*.c
 )
 
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/grainflow/source/GrainflowLib/include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/grainflow/source/projects/common")
+
+file(GLOB GRAINFLOW_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/grainflow/source/GrainflowLib/include/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/grainflow/source/projects/**/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/grainflow/source/projects/**/*.h
+
+)
+
 if(NOT ENABLE_FFMPEG)
 list(REMOVE_ITEM ELSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/pd-else/Source/Audio/play.file~.c)
 list(REMOVE_ITEM ELSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/pd-else/Source/Control/sfload.c)
@@ -216,6 +226,7 @@ endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 source_group(ELSE FILES ${ELSE_SOURCES})
+source_group(GRAINFLOW FILES ${GRAINFLOW_SOURCES})
 
 file(GLOB_RECURSE CYCLONE_SOURCES
     ./pd-cyclone/cyclone_objects/binaries/cyclone_lib.c
@@ -408,8 +419,8 @@ unset(MESSAGE_QUIET)
 # ------------------------------------------------------------------------------#
 # TARGETS
 # ------------------------------------------------------------------------------#
-add_library(externals STATIC ${ELSE_SOURCES} ${CYCLONE_SOURCES} ${PDLUA_SOURCES})
-add_library(externals-multi STATIC ${ELSE_SOURCES} ${CYCLONE_SOURCES} ${PDLUA_SOURCES} ${})
+add_library(externals STATIC ${ELSE_SOURCES} ${CYCLONE_SOURCES} ${PDLUA_SOURCES} ${GRAINFLOW_SOURCES})
+add_library(externals-multi STATIC ${ELSE_SOURCES} ${CYCLONE_SOURCES} ${PDLUA_SOURCES} ${GRAINFLOW_SOURCES})
 
 list(APPEND ELSE_INCLUDES
     pd-else/Source/Control/
@@ -427,6 +438,7 @@ list(APPEND ELSE_INCLUDES
 
 target_include_directories(externals PRIVATE ${ELSE_INCLUDES})
 target_include_directories(externals-multi PRIVATE ${ELSE_INCLUDES})
+
 
 # ag: pdlua needs PLUGDATA symbol at compile time for plugdata integration.
 target_compile_definitions(externals PRIVATE ${LIBPD_COMPILE_DEFINITIONS} PLUGDATA=1)

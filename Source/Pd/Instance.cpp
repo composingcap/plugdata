@@ -559,7 +559,9 @@ void Instance::initialisePd(String& pdlua_version)
         set_class_prefix(gensym("cyclone"));
         class_set_extern_dir(gensym("10.cyclone"));
         pd::Setup::initialiseCyclone();
-
+        set_class_prefix(gensym("grainflow"));
+        class_set_extern_dir(gensym("1.grainflow"));
+        //pd::Setup::initializeGrainflow();
         set_class_prefix(gensym("Gem"));
 
         class_set_extern_dir(gensym("14.gem"));
@@ -576,6 +578,7 @@ void Instance::initialisePd(String& pdlua_version)
         StackArray<char, 1000> vers;
         vers[0] = 0;
         pd::Setup::initialisePdLua(extra.getFullPathName().getCharPointer(), vers.data(), 1000, &registerLuaClass);
+
         if (vers[0])
             pdlua_version = vers.data();
     }

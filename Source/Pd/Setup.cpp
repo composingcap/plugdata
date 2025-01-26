@@ -1228,6 +1228,15 @@ void xselect_tilde_setup();
 void xselect2_tilde_setup();
 void zerocross_tilde_setup();
 
+
+void grainflow_tilde_setup();
+void setup_grainflow0x2elive_tilde();
+void setup_grainflow0x2erecord_tilde();
+void setup_grainflow0x2estereoPan_tilde();
+void setup_grainflow0x2emultiPan_tilde();
+
+
+
 void nchs_tilde_setup();
 void get_tilde_setup();
 void pick_tilde_setup();
@@ -1372,11 +1381,18 @@ void* Setup::createReceiver(void* ptr, char const* s,
 void Setup::initialisePdLua(char const* datadir, char* vers, int const vers_len, void (*register_class_callback)(char const*))
 {
     pdlua_setup(datadir, vers, vers_len, register_class_callback);
+    grainflow_tilde_setup();
+    setup_grainflow0x2elive_tilde();
+    //setup_grainflow0x2erecord_tilde();
+    setup_grainflow0x2estereoPan_tilde();
+    setup_grainflow0x2emultiPan_tilde();
+
 }
 
 void Setup::initialisePdLuaInstance()
 {
     pdlua_instance_setup();
+
 }
 
 void* Setup::createPrintHook(void* ptr, t_plugdata_printhook const hook_print)
@@ -2350,6 +2366,7 @@ void Setup::initialiseGem(std::string const& gemPluginPath)
 
 #endif
 }
+
 
 void Setup::initialiseCyclone()
 {
