@@ -1383,7 +1383,7 @@ void Setup::initialisePdLua(char const* datadir, char* vers, int const vers_len,
     pdlua_setup(datadir, vers, vers_len, register_class_callback);
     grainflow_tilde_setup();
     setup_grainflow0x2elive_tilde();
-    //setup_grainflow0x2erecord_tilde();
+    setup_grainflow0x2erecord_tilde();
     setup_grainflow0x2estereoPan_tilde();
     setup_grainflow0x2emultiPan_tilde();
 
